@@ -8,7 +8,10 @@
         'midle speed': 120,
         'fuel tank': 50,
         'fuel consumption': 8,
-        driver: 'Alex',
+        drivers: {
+            first: 'Alex',
+            third: 'Vlad',
+        },
 
         //1.1) Метод, який виводить на екран інформацію про автомобіль.
         carInfo: function() {
@@ -18,20 +21,22 @@
             console.log(`Середня швидкість - ${this['midle speed']} км/год.`)
             console.log(`Об\'єм баку - ${this['fuel tank']} літрів`)
             console.log(`Витрата палива - ${this['fuel consumption']} літрів на 100км.`)
-            console.log(`Ім\'я водія - ${this.driver}`)
+            console.log(`Ім\'я водія - ${this.drivers.first}`)
         },
 
         //1.2) Додавання ім’я водія у список
-        addDriver: function(key, nextDriver) {
-            car[key] = nextDriver;
+        addDriver: function(key, nextDriverName) {
+            car.drivers[key] = nextDriverName;
         },
 
         //1.3) Перевірка водія на наявність його ім’я у списку
         driverReview: function(name) {
-            if (name == car.driver) {
-                return console.log(`Водій ${name} є в списку`)
-            } else if (name != car.driver) {
-                return console.log(`Водія ${name} немає в списку`)
+            for (driver in this.drivers) {
+                if (name == this.drivers[driver]) {
+                    return console.log(`Водій ${name} є в списку`)
+                } else if (name !== this.drivers[driver]) {
+                    return console.log(`Водія ${name} немає в списку`)
+                }
             }
         },
 
@@ -50,12 +55,13 @@
     car.carInfo()
 
     // 1.2)
-    car.addDriver('secondDriver', 'Oleg')
+    car.addDriver('second', 'Oleg')
     console.log(car)
 
     // 1.3)
     car.driverReview('Alex')
     car.driverReview('Vitaliy')
+    car.driverReview('Vlad')
 
     // 1.4)
     car.calculate(1200)
