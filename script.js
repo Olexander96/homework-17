@@ -10,7 +10,6 @@
         'fuel consumption': 8,
         drivers: {
             first: 'Alex',
-            third: 'Vlad',
         },
 
         //1.1) Метод, який виводить на екран інформацію про автомобіль.
@@ -34,10 +33,14 @@
             for (driver in this.drivers) {
                 if (name == this.drivers[driver]) {
                     return console.log(`Водій ${name} є в списку`)
-                } else if (name !== this.drivers[driver]) {
-                    return console.log(`Водія ${name} немає в списку`)
+                } else  {
+                    continue
                 }
             }
+
+            if (name !== this.drivers[driver]) {
+                return console.log(`Водя ${name} немає в списку`)
+            } 
         },
 
         //1.4) Підрахунок необхідного часу та кількості палива для подолання переданої відстані з середньою швидкістю. 
@@ -61,7 +64,7 @@
     // 1.3)
     car.driverReview('Alex')
     car.driverReview('Vitaliy')
-    car.driverReview('Vlad')
+    car.driverReview('Oleg')
 
     // 1.4)
     car.calculate(1200)
