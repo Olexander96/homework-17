@@ -8,39 +8,36 @@
         'midle speed': 120,
         'fuel tank': 50,
         'fuel consumption': 8,
-        drivers: {
-            first: 'Alex',
-        },
+        drivers: 'Alex',
 
         //1.1) Метод, який виводить на екран інформацію про автомобіль.
         carInfo: function() {
-            console.log(`Виробник - ${this.producer}`)
-            console.log(`Модель - ${this.model}`)
-            console.log(`Рік випуску - ${this['maked year']}`)
-            console.log(`Середня швидкість - ${this['midle speed']} км/год.`)
-            console.log(`Об\'єм баку - ${this['fuel tank']} літрів`)
-            console.log(`Витрата палива - ${this['fuel consumption']} літрів на 100км.`)
-            console.log(`Ім\'я водія - ${this.drivers.first}`)
+            return `            Виробник - ${this.producer};
+            Модель - ${this.model};
+            Рік випуску - ${this['maked year']};
+            Середня швидкість - ${this['midle speed']} км/год.;
+            Об\'єм баку - ${this['fuel tank']} літрів;
+            Витрата палива - ${this['fuel consumption']} літрів на 100км;
+            Ім\'я водія - ${this.drivers.first}`
         },
 
         //1.2) Додавання ім’я водія у список
-        addDriver: function(key, nextDriverName) {
-            car.drivers[key] = nextDriverName;
+        addDriver: function(nextDriverName) {
+            car.drivers = car.drivers + ', ' + nextDriverName;
+            return car.drivers;
         },
 
         //1.3) Перевірка водія на наявність його ім’я у списку
         driverReview: function(name) {
-            for (driver in this.drivers) {
-                if (name == this.drivers[driver]) {
-                    return console.log(`Водій ${name} є в списку`)
-                } else  {
+            let array_drivers = car.drivers.split(', ');
+            for (let i = 0; i < array_drivers.length; i++) {
+                if (array_drivers[i] == name) {
+                    return `Водій ${name} є в списку`
+                } else {
                     continue
                 }
             }
-
-            if (name !== this.drivers[driver]) {
-                return console.log(`Водя ${name} немає в списку`)
-            } 
+            return `Водя ${name} немає в списку`
         },
 
         //1.4) Підрахунок необхідного часу та кількості палива для подолання переданої відстані з середньою швидкістю. 
@@ -55,16 +52,18 @@
     };
 
     // 1.1) 
-    car.carInfo()
+    console.log(car.carInfo()) 
 
     // 1.2)
-    car.addDriver('second', 'Oleg')
-    console.log(car)
+    console.log(car.addDriver('Oleg'));
+    console.log(car.addDriver('Maxum'));
+    
 
     // 1.3)
-    car.driverReview('Alex')
-    car.driverReview('Vitaliy')
-    car.driverReview('Oleg')
+    console.log(car.driverReview('Alex'))
+    console.log(car.driverReview('Vitaliy'))
+    console.log(car.driverReview('Oleg'))
+    console.log(car.driverReview('Kolya'))
 
     // 1.4)
     car.calculate(1200)
@@ -78,32 +77,34 @@
       
         // 2.1) Для виведення часу на екран.
         showTime: function() {
-            return console.log(`Даний час ${this.hour}:${this.minute}:${this.second}`)
+            return `Даний час ${this.hour}:${this.minute}:${this.second}`
         },
 
         // 2.2) Зміни часу на передану кількість секунд.
         changeSeconds: function(seconds) {
             if (seconds != Number(seconds)) {
-                return console.log('Введіть число!')
-            } else if (seconds >= 60 && seconds < 3600) {
-                time.minute = time.minute + Math.floor(seconds / 60);
-                seconds = seconds % 60;
-                return console.log(`Даний час ${time.hour}:${time.minute}:${seconds}`)
+                return 'Введіть число!';
+            } else if ((seconds + this.second) >= 60 && (seconds + this.second) < 3600) {
+                time.minute = time.minute + Math.floor((seconds + this.second)  / 60);
+                time.second = (seconds + this.second) % 60;
+                return 
             } else {
-                return console.log(`Даний час ${time.hour}:${time.minute}:${seconds}`)
+                time.second = seconds + this.second;
+                return 
             }
         },
 
         // 2.3) Зміни часу на передану кількість хвилин.
         changeMinutes: function(minutes) {
             if (minutes != Number(minutes)) {
-                return console.log('Введіть число!')
-            } else if (minutes >= 60 && minutes < 1440) {
-                time.hour = time.hour + Math.floor(minutes / 60);
-                minutes = minutes % 60;
-                return console.log(`Даний час ${time.hour}:${minutes}:${time.second}`)
+                return 'Введіть число!';
+            } else if ((minutes + this.minute) >= 60 && (minutes + this.minute) < 1440) {
+                time.hour = time.hour + Math.floor((minutes + this.minute) / 60);
+                time.minute = (minutes + this.minute) % 60;
+                return
             } else {
-                return console.log(`Даний час ${time.hour}:${minutes}:${time.second}`)
+                time.minute = minutes + this.minute
+                return 
             }
         },
 
@@ -112,29 +113,30 @@
         //якщо до часу «20:59:45» додати 30 секунд, то повинно вийти «21:00:15», а не «20:59:75». Також потрібно 
         //передбачити можливість того що користувач може передати 150 секунд, або 75 хвилин.
         changeHours: function(hours) {
-            if (hours >= 24) {
-                hours = hours % 24;
-                return console.log(`Даний час ${hours}:${time.minute}:${time.second}`)
+            if ((hours + this.hour) >= 24) {
+                time.hour = (hours + this.hour) % 24;
+                return 
             } else {
-                return console.log(`Даний час ${hours}:${time.minute}:${time.second}`)
+                time.hour += hours;
+                return 
             }
         }
     }
 
     // 2.1)
-    time.showTime()
+    console.log(time.showTime()) 
 
     // 2.2)
     time.changeSeconds(10)
-    time.changeSeconds(67)
+    console.log(time.showTime())
 
     // 2.3)
-    time.changeMinutes(15)
-    time.changeMinutes(67)
+    time.changeMinutes(20)
+    console.log(time.showTime())
 
     // 2.4)
-    time.changeHours(23)
-    time.changeHours(52)
+    time.changeHours(4)
+    console.log(time.showTime())
 
 //Максимум
 // 3) Створи об'єкт, що описує звичайний дріб. Створи об'єкт, який має методи роботи з дробом:
@@ -152,7 +154,7 @@
             
             if (tempDenominator == b) {
                 a = tempNumerator + a;
-                 return console.log(`Сума дробів =  ${a}/${tempDenominator}`)
+                 return `Сума дробів =  ${a}/${tempDenominator}`;
             } else {
                 let result = b * tempDenominator
                 a = a * (result / b)
@@ -166,7 +168,7 @@
                         result = result / i;
                     } 
                 }
-                return console.log(`Сума дробів =  ${numerator}/${result}`)
+                return `Сума дробів =  ${numerator}/${result}`;
             }
         },
 
@@ -181,7 +183,7 @@
 
             if (tempDenominator == b) {
                 a = this.numerator - a;
-                 return console.log(`Різниця дробів =  ${a}/${tempDenominator}`)
+                 return `Різниця дробів =  ${a}/${tempDenominator}`
             } else {
                 let result = b * tempDenominator
                 a = a * (result / b)
@@ -195,7 +197,7 @@
                         result = result / i;
                     } 
                 }
-                return console.log(`Різниця дробів =  ${numerator}/${result}`)
+                return `Різниця дробів =  ${numerator}/${result}`
             }
         },
 
@@ -214,7 +216,7 @@
                     denominator = denominator / i;
                 } 
             }
-            return console.log(`Добуток дробів =  ${numerator}/${denominator}`)
+            return `Добуток дробів =  ${numerator}/${denominator}`
         },
 
         // 3.4) Ділення 2-х об'єктів-дробів.
@@ -232,7 +234,7 @@
                     denominator = denominator / i;
                 } 
             }
-            return console.log(`Частка дробів =  ${numerator}/${denominator}`)
+            return `Частка дробів =  ${numerator}/${denominator}`
         },
 
         // 3.5) Скорочення об'єкта-дробу.
@@ -248,7 +250,7 @@
                     b = b / i;
                 } 
             }
-            return console.log(`Cкорочений дріб =  ${a}/${b}`)
+            return `Cкорочений дріб =  ${a}/${b}`
         },
     };
 
@@ -259,23 +261,23 @@
 
 
     // 3.1) Додавання
-    obj1.sum()
+    console.log(obj1.sum()) 
      
 
     // 3.2) Віднімання
-    obj1.minus()
+    console.log(obj1.minus())
     
 
     // 3.3) Множення
-    obj1.multiplication()
+    console.log(obj1.multiplication())
     
 
     // 3.4) Ділення
-    obj1.division()
+    console.log(obj1.division())
     
 
     // 3.5) Скорочення
-    obj1.abbreviation()
+    console.log(obj1.abbreviation())
     
 
     
