@@ -24,7 +24,7 @@
         //1.2) Додавання ім’я водія у список
         addDriver: function(nextDriverName) {
             car.drivers = car.drivers + ', ' + nextDriverName;
-            return car.drivers;
+            return
         },
 
         //1.3) Перевірка водія на наявність його ім’я у списку
@@ -55,8 +55,9 @@
     console.log(car.carInfo()) 
 
     // 1.2)
-    console.log(car.addDriver('Oleg'));
-    console.log(car.addDriver('Maxum'));
+    car.addDriver('Oleg');
+    car.addDriver('Maxum');
+    console.log(car.carInfo()) 
     
 
     // 1.3)
